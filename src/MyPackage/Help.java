@@ -26,8 +26,9 @@ public class Help extends JFrame {
 			
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				clos();
-				new My_Dialog(2);	
+				dispose();
+				//new MyDialog(2);	
+				new Menu();
 			}
 
 			@Override

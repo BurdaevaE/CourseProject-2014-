@@ -1,12 +1,4 @@
-4
-fighter 899 112
-fighter 899 115
-coin 300 112
-coin 350 72 
-coin 400 32
-coin 450 72
-coin 500 112
-coin 550 72 
-coin 600 32
-coin 650 72
-coin 700 112
+1
+coin 170 112
+coin 300 122
+coin 400 122

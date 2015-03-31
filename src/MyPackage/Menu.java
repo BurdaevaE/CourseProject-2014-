@@ -118,7 +118,7 @@ public class Menu extends JFrame {
 		exitbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clos();
-				new My_Dialog(1);
+				new MyDialog(1);
 			}
 		});
 
@@ -134,7 +134,7 @@ public class Menu extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
 				clos();
-				new My_Dialog(1);
+				new MyDialog(1);
 			}
 
 			@Override

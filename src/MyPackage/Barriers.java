@@ -26,25 +26,19 @@ public class Barriers {
 	private Image img;
 	private int list_n;
 
-	public static ArrayList<Image> coin_image_list = new ArrayList<Image>();
-	public static ArrayList<Image> airplane_image_list = new ArrayList<Image>();
-	public static ArrayList<Image> helicopter_image_list = new ArrayList<Image>();
-	public static ArrayList<Image> fighter_image_list = new ArrayList<Image>();
-	public static ArrayList<Image> balloon_image_list = new ArrayList<Image>();
-	public static ArrayList<Image> present_image_list = new ArrayList<Image>();
+	public ArrayList<Image> coin_image_list = new ArrayList<Image>();
+	public ArrayList<Image> airplane_image_list = new ArrayList<Image>();
+	public ArrayList<Image> helicopter_image_list = new ArrayList<Image>();
+	public ArrayList<Image> fighter_image_list = new ArrayList<Image>();
+	public ArrayList<Image> balloon_image_list = new ArrayList<Image>();
+	public ArrayList<Image> present_image_list = new ArrayList<Image>();
 
-	Barriers(String type) {
-		if (type.equals(coin_num))
+	Barriers() {
 			init_coin();
-		if (type.equals(airplane_num))
 			init_airplane();
-		if (type.equals(helicopter_num))
 			init_helicopter();
-		if (type.equals(fighter_num))
 			init_fighter();
-		if (type.equals(balloon_num))
 			init_balloon();
-		if (type.equals(present_num))
 			init_present();
 	}
 
@@ -160,8 +154,7 @@ public class Barriers {
 		return list_n;
 	}
 
-	public void draw(Graphics g, int x, int y, int n, String type) // рисуем
-																	// картинку
+	public void draw(Graphics g, int x, int y, int n, String type) // рисуем															// картинку
 	{
 		ArrayList<Image> image_list = new ArrayList<Image>();
 		if (type.equals(coin_num)) {
@@ -185,12 +178,12 @@ public class Barriers {
 		g.drawImage(image_list.get(n), x, y, null);
 	}
 
-	public int get_width() {
-		return bars.getWidth(img);
+	public int get_width(Image image) {
+		return bars.getWidth(image);
 	}
 
-	public int get_height() {
-		return bars.getHeight(img);
+	public int get_height(Image image) {
+		return bars.getHeight(image);
 	}
 
 	public String get_type() {

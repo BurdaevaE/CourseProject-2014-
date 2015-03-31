@@ -102,34 +102,30 @@ public class LevelMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				level = 1;
 				clos();
-				NewGame game = new NewGame();
-				game.start_game(level_type, level);
+				new NewGame().start_game(level_type, level);
 			}
 		});
 		secondbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				level = 2;
-				NewGame game = new NewGame();
-				game.start_game(level_type, level);
 				clos();
+				new NewGame().start_game(level_type, level);
 			}
 		});
 
 		thirdbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				level = 3;
-				NewGame game = new NewGame();
-				game.start_game(level_type, level);
 				clos();
+				new NewGame().start_game(level_type, level);
 			}
 		});
 
 		fourthbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				level = 4;
-				NewGame game = new NewGame();
-				game.start_game(level_type, level);
 				clos();
+				new NewGame().start_game(level_type, level);
 			}
 		});
 
@@ -137,9 +133,7 @@ public class LevelMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				level = 5;
 				clos();
-				NewGame game = new NewGame();
-				game.start_game(level_type, level);
-				
+				new NewGame().start_game(level_type, level);
 			}
 		});
 	}

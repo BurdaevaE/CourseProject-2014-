@@ -13,7 +13,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class My_Dialog extends JFrame {
+public class MyDialog extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	private static JButton btn1;
@@ -26,13 +26,13 @@ public class My_Dialog extends JFrame {
 	static int type;
 	static int level;
 
-	My_Dialog(int i)
+	MyDialog(int i)
 	{
 		set_i(i);
 		init();
 	}
 	
-	My_Dialog(int type, int level, int i)
+	MyDialog(int type, int level, int i)
 	{
 		this.type=type;
 		this.level=level;
@@ -157,7 +157,7 @@ public class My_Dialog extends JFrame {
 				if(i==2)
 				{
 					clos();
-					new TypeMenu();
+					new Help();
 				}
 //				if(i==4)
 //				{

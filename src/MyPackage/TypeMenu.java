@@ -134,7 +134,7 @@ public class TypeMenu extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
 				clos();
-				new My_Dialog(2);	
+				new MyDialog(2);	
 			}
 
 			@Override
