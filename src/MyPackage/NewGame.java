@@ -55,20 +55,20 @@ public class NewGame extends Canvas implements Runnable {
 	private int level; // уровень
 	private String level_file; // название файла с картой
 
-	private static ArrayList<Struct_obj> obj_list = new ArrayList<Struct_obj>(); // все
+	private ArrayList<Struct_obj> obj_list = new ArrayList<Struct_obj>(); // все
 																					// объекты
-	private static ArrayList<Struct_act_obj> act_obj_list = new ArrayList<Struct_act_obj>(); // объекты
+	private ArrayList<Struct_act_obj> act_obj_list = new ArrayList<Struct_act_obj>(); // объекты
 																								// "поля"
-	private static ArrayList<String[]> best_list = new ArrayList<String[]>(); // лучшие
+	private ArrayList<String[]> best_list = new ArrayList<String[]>(); // лучшие
 																				// результаты
 
-	private static int cur_obj_list = 0;// тукущий номер элемента в obj_list
+	private int cur_obj_list = 0;// тукущий номер элемента в obj_list
 
-	private static boolean running;
+	private boolean running;
 
-	private static int c_num = 0; // количесво монет
-	private static int score = 0; // счет
-	private static int life = 100; // жизнь
+	private int c_num = 0; // количесво монет
+	private int score = 0; // счет
+	private int life = 100; // жизнь
 
 	private JLabel label_qcoin; // лейбл-кол-во монет
 	private JLabel label_lif; // лейбл-жизнь
@@ -371,29 +371,30 @@ public class NewGame extends Canvas implements Runnable {
 
 	void make_move(int i, String type) {
 		if (type.equals("coin"))
-			act_obj_list.get(i).x--;
+			act_obj_list.get(i).x = act_obj_list.get(i).x - level * hero.getSpeed();
 		if (type.equals("airplane")) {
-			act_obj_list.get(i).x--;
+			act_obj_list.get(i).x = act_obj_list.get(i).x - level * hero.getSpeed();
 			act_obj_list.get(i).y--;
 		}
 		if (type.equals("helicopter"))
-			act_obj_list.get(i).x--;
+			act_obj_list.get(i).x = act_obj_list.get(i).x - level * hero.getSpeed();//--
 		if (type.equals("fighter"))
-			act_obj_list.get(i).x -= 5;
+			act_obj_list.get(i).x = act_obj_list.get(i).x - 5 * level * hero.getSpeed();
 		if (type.equals("balloon")) {
+			act_obj_list.get(i).x = act_obj_list.get(i).x - level * hero.getSpeed();
 			int rand_num = rand.nextInt(100);
 			if (rand_num % 2 == 0
 					&& act_obj_list.get(i).y >= 0
 					&& act_obj_list.get(i).y <= (265 - act_obj_list.get(i).height)) {
-				act_obj_list.get(i).x--;
+				//act_obj_list.get(i).x--;
 				act_obj_list.get(i).y++;
 			} else {
-				act_obj_list.get(i).x--;
+				//act_obj_list.get(i).x--;
 				act_obj_list.get(i).y--;
 			}
 		}
 		if (type.equals("present"))
-			act_obj_list.get(i).x -= 2;
+			act_obj_list.get(i).x = act_obj_list.get(i).x - 2 * level * hero.getSpeed();
 	}
 
 	public void create_barr() {
@@ -463,6 +464,9 @@ public class NewGame extends Canvas implements Runnable {
 			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 				hero.set_downPressed(true);
 			}
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				hero.set_rightPressed(true);
+			}
 		}
 
 		public void keyReleased(KeyEvent e) {
@@ -471,6 +475,10 @@ public class NewGame extends Canvas implements Runnable {
 			}
 			if (e.getKeyCode() == KeyEvent.VK_DOWN) {
 				hero.set_downPressed(false);
+			}
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				hero.set_rightPressed(false);
+				hero.setSpeed(1);
 			}
 		}
 	}

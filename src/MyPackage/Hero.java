@@ -7,12 +7,14 @@ public class Hero {
 	private static Sprite hero;
 	private Image img;
 
-	private static boolean upPressed = false;
-	private static boolean downPressed = false;
-
-	private static int x = 10;
-	private static int y = 130;
-	private static int y_lim = 265;
+	private boolean upPressed = false;
+	private boolean downPressed = false;
+	private boolean rightPressed = false;
+	
+	private int x = 10;
+	private int y = 130;
+	private int y_lim = 200;
+	private int speed = 1;
 
 	Hero() {
 		init_hero();
@@ -36,6 +38,10 @@ public class Hero {
 	public void set_downPressed(boolean down) {
 		downPressed = down;
 	}
+	
+	public void set_rightPressed(boolean right) {
+		rightPressed = right;
+	}
 
 	public int get_x() {
 		return x;
@@ -52,6 +58,13 @@ public class Hero {
 	public int get_height() {
 		return hero.getHeight(img);
 	}
+	
+	public int getSpeed() {
+		return speed;
+	}
+	public void setSpeed(int Speed) {
+		this.speed = Speed;
+	}
 
 	public void update(long delta) {
 		if (upPressed == true && y > 0) {
@@ -59,6 +72,9 @@ public class Hero {
 		}
 		if (downPressed == true && y <= y_lim) {
 			y++;
+		}
+		if (rightPressed && speed <5){
+			speed++;
 		}
 	}
 }
