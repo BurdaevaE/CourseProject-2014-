@@ -25,7 +25,6 @@ coin 899 72
 coin 899 72
 coin 899 72
 coin 899 72
-airplane 899 52
 coin 899 192
 coin 899 152
 coin 899 112

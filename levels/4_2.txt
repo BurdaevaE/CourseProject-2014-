@@ -18,7 +18,7 @@ coin 899 52
 coin 899 152
 coin 899 152
 coin 899 100
-airplane 899 52
+airplane 700 489
 coin 899 192
 coin 899 152
 coin 899 112
@@ -37,7 +37,7 @@ coin 899 32
 present 899 112
 coin 899 192
 coin 899 152
-airplane 899 32
+airplane 570 489
 coin 899 112
 coin 899 72
 coin 899 32

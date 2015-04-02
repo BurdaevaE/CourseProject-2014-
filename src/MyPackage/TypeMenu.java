@@ -17,11 +17,11 @@ public class TypeMenu extends JFrame {
 
 	private static int level_type;
 
-	private static JButton desertbtn = new JButton();
-	private static JButton seabtn = new JButton();
-	private static JButton countrybtn = new JButton();
-	private static JButton fieldbtn = new JButton();
-	private static JButton comingbtn = new JButton();
+	JButton desertbtn = new JButton();
+	JButton seabtn = new JButton();
+	JButton countrybtn = new JButton();
+	JButton fieldbtn = new JButton();
+	JButton comingbtn = new JButton();
 
 	private void clos() {
 		this.dispose();
@@ -134,7 +134,7 @@ public class TypeMenu extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
 				clos();
-				new MyDialog(2);	
+				new MyDialog(4);	
 			}
 
 			@Override

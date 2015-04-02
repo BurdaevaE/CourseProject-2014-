@@ -3,8 +3,6 @@ package MyPackage;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
@@ -17,11 +15,11 @@ public class LevelMenu extends JFrame {
 
 	private static int level;
 
-	private static JButton firstbtn = new JButton();
-	private static JButton secondbtn = new JButton();
-	private static JButton thirdbtn = new JButton();
-	private static JButton fourthbtn = new JButton();
-	private static JButton fifthbtn = new JButton();
+	private JButton firstbtn = new JButton();
+	private JButton secondbtn = new JButton();
+	private JButton thirdbtn = new JButton();
+	private JButton fourthbtn = new JButton();
+	private JButton fifthbtn = new JButton();
 	
 	private int level_type;
 
@@ -95,21 +93,21 @@ public class LevelMenu extends JFrame {
 		box.setOpaque(false);
 		add(pa);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-		setResizable(false);
+		//setResizable(false);
 		setVisible(true);
 
 		firstbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				level = 1;
 				clos();
-				new NewGame().start_game(level_type, level);
+				new NewGame(level_type, level);
 			}
 		});
 		secondbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				level = 2;
 				clos();
-				new NewGame().start_game(level_type, level);
+				new NewGame(level_type, level);
 			}
 		});
 
@@ -117,7 +115,7 @@ public class LevelMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				level = 3;
 				clos();
-				new NewGame().start_game(level_type, level);
+				new NewGame(level_type, level);
 			}
 		});
 
@@ -125,7 +123,7 @@ public class LevelMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				level = 4;
 				clos();
-				new NewGame().start_game(level_type, level);
+				new NewGame(level_type, level);
 			}
 		});
 
@@ -133,7 +131,7 @@ public class LevelMenu extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				level = 5;
 				clos();
-				new NewGame().start_game(level_type, level);
+				new NewGame(level_type, level);
 			}
 		});
 	}

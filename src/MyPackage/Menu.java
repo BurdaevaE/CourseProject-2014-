@@ -24,18 +24,19 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Menu extends JFrame {
+public class Menu extends JFrame{
 	private static final long serialVersionUID = 1L;
 
-	private static JButton newbtn = new JButton();
-	private static JButton scorebtn = new JButton();
-	private static JButton helpbtn = new JButton();
-	private static JButton exitbtn = new JButton();
+	JButton newbtn = new JButton();
+	JButton scorebtn = new JButton();
+	JButton helpbtn = new JButton();
+	JButton exitbtn = new JButton();
 
 	public Menu() {
 			init();
 	}
 
+	
 	private void clos() {
 		this.dispose();
 	}
@@ -129,7 +130,7 @@ public class Menu extends JFrame {
 		setResizable(false);
 		setVisible(true);
 		
-		addWindowListener(new WindowListener() {
+		 addWindowListener(new WindowListener() {
 			
 			@Override
 			public void windowClosing(WindowEvent arg0) {

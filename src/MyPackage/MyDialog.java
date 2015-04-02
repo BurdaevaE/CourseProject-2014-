@@ -16,16 +16,16 @@ import javax.swing.JLabel;
 public class MyDialog extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
-	private static JButton btn1;
-	private static JButton btn2;
-	private static JLabel message;
+	JButton btn1;
+	JButton btn2;
+	JLabel message;
 	String btn1_text;
 	String btn2_text;
 	String mes;
 	static int i;
 	static int type;
-	static int level;
-
+	static int level; 
+	
 	MyDialog(int i)
 	{
 		set_i(i);
@@ -56,46 +56,19 @@ public class MyDialog extends JFrame {
 		ImageIcon dialog_btn2=null;
 		ImageIcon dialog_btn2_p=null;
 		
-		if(i==1) //1 форма
+		if(i==1) //выход
 		{
 			mes="Leave us?";
-			dialog_btn1 = new ImageIcon("buttons/dialogs/dialog_yes.png");
-			dialog_btn1_p = new ImageIcon("buttons/dialogs/dialog_yes_m.png");
-			dialog_btn2 = new ImageIcon("buttons/dialogs/dialog_no.png");
-			dialog_btn2_p = new ImageIcon("buttons/dialogs/dialog_no_m.png");
 		}
-		if(i==2) //2 форма
+		if(i==2 || i==3 || i==4) //возврат в меню из "хелпа" и "лучших результатов"
 		{
-			mes="Back to Menu?";
-			dialog_btn1 = new ImageIcon("buttons/dialogs/dialog_yes.png");
-			dialog_btn1_p = new ImageIcon("buttons/dialogs/dialog_yes_m.png");
-			dialog_btn2 = new ImageIcon("buttons/dialogs/dialog_no.png");
-			dialog_btn2_p = new ImageIcon("buttons/dialogs/dialog_no_m.png");
+			mes="Back to Menu?";	
 		}
-//		if(i==3) //3 форма
-//		{
-//			mes="Back to ...?";
-//			dialog_btn1 = new ImageIcon("buttons/dialogs/dialog_menu.png");
-//			dialog_btn1_p = new ImageIcon("buttons/dialogs/dialog_menu_m.png");
-//			dialog_btn2 = new ImageIcon("buttons/dialogs/dialog_prev.png");
-//			dialog_btn2_p = new ImageIcon("buttons/dialogs/dialog_prev_m.png");
-//		}
-//		if(i==4) //4 форма - exit
-//		{
-//			dialog_btn1 = new ImageIcon("buttons/dialogs/dialog_menu.png");
-//			dialog_btn1_p = new ImageIcon("buttons/dialogs/dialog_menu_m.png");
-//			dialog_btn2 = new ImageIcon("buttons/dialogs/dialog_back.png");
-//			dialog_btn2_p = new ImageIcon("buttons/dialogs/dialog_back_m.png");
-//		}
-//		
-//		if(i==5) //bad end
-//		{
-//			dialog_btn1 = new ImageIcon("buttons/dialogs/dialog_menu.png");
-//			dialog_btn1_p = new ImageIcon("buttons/dialogs/dialog_menu_m.png");
-//			dialog_btn2 = new ImageIcon("buttons/dialogs/dialog_try.png");
-//			dialog_btn2_p = new ImageIcon("buttons/dialogs/dialog_try_m.png");
-//		}
-
+		dialog_btn1 = new ImageIcon("buttons/dialogs/dialog_yes.png");
+		dialog_btn1_p = new ImageIcon("buttons/dialogs/dialog_yes_m.png");
+		dialog_btn2 = new ImageIcon("buttons/dialogs/dialog_no.png");
+		dialog_btn2_p = new ImageIcon("buttons/dialogs/dialog_no_m.png");
+		
 		
 		Box box = Box.createVerticalBox();
 		box.add(Box.createVerticalStrut(10));
@@ -140,7 +113,7 @@ public class MyDialog extends JFrame {
 				{
 					System.exit(0);
 				}
-				if(i==2)
+				if(i==2||i==3||i==4)
 				{
 					clos();
 					new Menu();
@@ -148,6 +121,7 @@ public class MyDialog extends JFrame {
 			}
 		});
 		btn2.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
 				if(i==1)
 				{
@@ -159,18 +133,16 @@ public class MyDialog extends JFrame {
 					clos();
 					new Help();
 				}
-//				if(i==4)
-//				{
-//					clos();
-//					NewGame game = new NewGame();
-//					game.start_game(type, level);
-//				}
-//				if(i==5)
-//				{
-//					clos();
-//					NewGame game = new NewGame();
-//					game.start_game(type, level);
-//				}
+				if(i==3)
+				{
+					clos();
+					new BestScores();
+				}
+				if(i==4)
+				{
+					clos();
+					new TypeMenu();
+				}
 			}
 		});
 	}

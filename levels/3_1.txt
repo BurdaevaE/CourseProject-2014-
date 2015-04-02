@@ -23,7 +23,6 @@ present 899 32
 balloon 899 72
 coin 899 152
 coin 899 72
-airplane 899 52
 coin 899 192
 coin 899 152
 balloon 830 112

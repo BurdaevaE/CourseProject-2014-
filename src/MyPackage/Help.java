@@ -8,10 +8,11 @@ import javax.swing.JFrame;
 
 public class Help extends JFrame {
 	private static final long serialVersionUID = 1L;
-
+	
 	Help() {
 		init();
 	}
+
 
 	private void init() {
 		setTitle("FlyHigh");
@@ -23,12 +24,11 @@ public class Help extends JFrame {
 		setVisible(true);
 		
 		addWindowListener(new WindowListener() {
-			
+
 			@Override
 			public void windowClosing(WindowEvent arg0) {
-				dispose();
-				//new MyDialog(2);	
-				new Menu();
+				clos();
+				new MyDialog(2);
 			}
 
 			@Override

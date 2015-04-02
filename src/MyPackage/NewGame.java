@@ -9,6 +9,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -41,27 +42,27 @@ class Struct_act_obj {
 
 public class NewGame extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
-
 	private Hero hero;
 	private Barriers barr = new Barriers();
 	private Background back;
 
-	JFrame frame;
+	JFrame frame = new JFrame();
 
-	private static final int WIDTH = 900; // ширина
-	private static final int HEIGHT = 490; // высота
-	private static final String NAME = "FlyHigh"; // заголовок окна
+	private static int WIDTH = 900; // ширина
+	private static int HEIGHT = 490; // высота
 
-	// private double speed=2; //скорость
-	private static int level_type; // типа фона
-	private static int level; // уровень
+	private int level_type; // типа фона
+	private int level; // уровень
 	private String level_file; // название файла с картой
 
 	private static ArrayList<Struct_obj> obj_list = new ArrayList<Struct_obj>(); // все
 																					// объекты
 	private static ArrayList<Struct_act_obj> act_obj_list = new ArrayList<Struct_act_obj>(); // объекты
 																								// "поля"
-	private static int cur_obj_list = 0;
+	private static ArrayList<String[]> best_list = new ArrayList<String[]>(); // лучшие
+																				// результаты
+
+	private static int cur_obj_list = 0;// тукущий номер элемента в obj_list
 
 	private static boolean running;
 
@@ -69,11 +70,8 @@ public class NewGame extends Canvas implements Runnable {
 	private static int score = 0; // счет
 	private static int life = 100; // жизнь
 
-	private static String num_coin;
-	private static String num_score = String.valueOf(c_num);
-	private static JLabel label_qcoin = new JLabel(); // лейбл-кол-во монет
-	// private static JLabel label_qscore = new JLabel(num_score);
-	private static JLabel label_lif = new JLabel();
+	private JLabel label_qcoin; // лейбл-кол-во монет
+	private JLabel label_lif; // лейбл-жизнь
 
 	private static int q_barrs; // количество преград на "столе"
 
@@ -87,12 +85,13 @@ public class NewGame extends Canvas implements Runnable {
 		return WIDTH;
 	}
 
-	public void start_game(int level_type, int level) {
-		NewGame game = new NewGame();
-
+	NewGame(int level_type, int level) {
 		this.level_type = level_type;
 		this.level = level;
+		start_game();
+	}
 
+	public void start_game() {
 		String text = "";
 		String[] text_to_structure = { "" };
 
@@ -118,17 +117,17 @@ public class NewGame extends Canvas implements Runnable {
 			System.exit(0);
 		}
 
-		game.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+		setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
-		frame = new JFrame(NewGame.NAME);
+		frame.setTitle("FlyHigh");
 
 		JLabel label_coin = new JLabel("Coins:");
-		JLabel label_score = new JLabel("Score:");
-
 		JLabel label_life = new JLabel();
 		ImageIcon life_img = new ImageIcon("assets/life.png");
 		label_life.setIcon(life_img);
-		label_lif = new JLabel(String.valueOf(life));
+		label_lif = new JLabel();
+		label_lif.setText(String.valueOf(life));
+		label_qcoin = new JLabel(String.valueOf(c_num));
 
 		JPanel p_cn = new JPanel();
 		frame.setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
@@ -136,18 +135,16 @@ public class NewGame extends Canvas implements Runnable {
 
 		p_cn.add(label_coin);
 		p_cn.add(label_qcoin);
-		// p_cn.add(label_score);
-		// p_cn.add(label_qscore);
 		p_cn.add(label_life);
 		p_cn.add(label_lif);
 		frame.add(p_cn, BorderLayout.NORTH);
-		frame.add(game, BorderLayout.CENTER); // добавляем холст на наш фрейм
+		frame.add(this, BorderLayout.CENTER); // добавляем холст на фрейм
 		frame.pack();
 		frame.setResizable(false);
 		frame.setVisible(true);
 
-		game.init_objs();
-		game.start();
+		init_objs();
+		start();
 	}
 
 	public void make_str(String[] text) {
@@ -254,20 +251,18 @@ public class NewGame extends Canvas implements Runnable {
 		if (act_obj_list.size() == 0) {
 			act_obj_list.clear();
 			obj_list.clear();
-			score = level * c_num * 10 + level * life;
+			score = level * c_num * 10 + life;
 			String str = "Level completed:)\nCoins: " + c_num + "\nLife: "
 					+ life + "\nYour score is " + score;
 			JOptionPane.showMessageDialog(null, str);
 			running = false;
-			// int reply = JOptionPane.showConfirmDialog(null, str ,
-			// "Congratulations", JOptionPane.YES_NO_OPTION);
-			// if (reply == JOptionPane.YES_OPTION){
-			// start_game(level_type, level+1);
-			// frame.dispose();
-			// }
-			save_best();
-			// new Menu();
-			return;
+			try {
+				save_best();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			frame.dispose();
+			new TypeMenu();
 		} else {
 			for (int i = 0; i < act_obj_list.size(); i++) {
 				int flag = 0;
@@ -277,17 +272,12 @@ public class NewGame extends Canvas implements Runnable {
 					if (flag == 1) // coin
 					{
 						c_num++;
-						// score += level * 10;
 					}
 					if (flag == 2) // pot=10coins
 					{
 						c_num += 10;
-						// score += (level * 50);
 					}
-					num_coin = String.valueOf(c_num);
-					num_score = String.valueOf(score);
-					label_qcoin.setText(num_coin);
-					// label_qscore.setText(num_score);
+					label_qcoin.setText(c_num + "");
 					act_obj_list.remove(i);
 					create_barr();
 					cur_obj_list++;
@@ -314,18 +304,18 @@ public class NewGame extends Canvas implements Runnable {
 						if (life >= 50) {
 							life = 100;
 						} else {
-							life += 50;
+							life += 20;
 						}
 					}
 					if (life <= 0) {
-						life = 0;
-						label_lif.setText(String.valueOf(life));
+						label_lif.setText(life + "");
 						JOptionPane.showMessageDialog(null, "Level failed:(");
 						running = false;
-						// save_best();
-						// new Menu();
+						frame.dispose();
+						new TypeMenu();
+						life = 100;
 					}
-					label_lif.setText(String.valueOf(life));
+					label_lif.setText(life + "");
 					act_obj_list.remove(i);
 					create_barr();
 					cur_obj_list++;
@@ -336,14 +326,6 @@ public class NewGame extends Canvas implements Runnable {
 					cur_obj_list++;
 				}
 			}
-
-			// try {
-			// Thread.sleep(0,3);
-			// } catch (InterruptedException e) {
-			// e.printStackTrace();
-			// }
-			// for (int i = 0; i < 2000000; i++) {
-			// }
 		}
 		for (int i = 0; i < act_obj_list.size(); i++) {
 			make_move(i, act_obj_list.get(i).type);
@@ -351,22 +333,40 @@ public class NewGame extends Canvas implements Runnable {
 
 	}
 
-	private void save_best() {
-		try {
-			BufferedReader rfile = new BufferedReader(new FileReader(
-					"assets/best.txt"));
-			String line;
+	private void save_best() throws IOException {
+		BufferedReader rfile;
+		BufferedWriter wfile;
+		int string = 0;
+		String arr[];
 
-			while ((line = rfile.readLine()) != null) {
-				// text_to_structure = text.split(" ");
-				// make_str(text_to_structure);
-			}
+		rfile = new BufferedReader(new FileReader("assets/best.txt"));
+		String text;
 
-			rfile.close();
-
-		} catch (IOException e) {
-			System.exit(0);
+		while ((text = rfile.readLine()) != null) {
+			String[] array = text.split(" ");
+			best_list.add(array);
+			string++;
 		}
+		rfile.close();
+		arr = best_list.get(level - 1);
+		if (Integer.valueOf(arr[level_type]) < score) {
+			arr[level_type] = Integer.toString(score);
+			best_list.set(level - 1, arr);
+			wfile = new BufferedWriter(new FileWriter("assets/best.txt"));
+			for (int i = 0; i < string; i++) {
+				String[] array = best_list.get(i);
+				int j = 0;
+				int len = array.length;
+				while (j < len) {
+					wfile.write(array[j]);
+					wfile.write(" ");
+					j++;
+				}
+				wfile.write("\n");
+			}
+			wfile.close();
+		}
+		best_list.clear();
 	}
 
 	void make_move(int i, String type) {

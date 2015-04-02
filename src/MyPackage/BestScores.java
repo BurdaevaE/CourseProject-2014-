@@ -11,24 +11,40 @@ import java.io.IOException;
 
 import javax.swing.Box;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class BestScores extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	JLabel label_t1 = new JLabel();
-	JLabel label_t2 = new JLabel();
-	JLabel label_t3 = new JLabel();
-	JLabel label_t4 = new JLabel();
-	JLabel label_t5 = new JLabel();
-
+	JTextArea bests=new JTextArea();
 	StringBuilder sb = new StringBuilder();
-	JScrollPane scrollPane;
 
 	BestScores() {
 		init();
 	}
+	
+
+	private void parser() {
+		try {
+			BufferedReader rfile = new BufferedReader(new FileReader(
+					"assets/best.txt"));
+			String line;
+
+			while ((line = rfile.readLine()) != null) {
+				sb.append(line);
+				sb.append("\n");
+			}
+			;
+			String b=sb.toString();
+			b=b.replace(" ", "\t");
+			bests.setText(b);
+			rfile.close();
+
+		} catch (IOException e) {
+			System.exit(0);
+		}
+	}
+
 
 	private void init() {
 		setTitle("FlyHigh");
@@ -37,35 +53,15 @@ public class BestScores extends JFrame {
 		parser();
 
 		Box box = Box.createVerticalBox();
-
-		Font font = new Font("Algerian", Font.PLAIN, 24);
-
+		Font font = new Font("Algerian", Font.PLAIN, 14);
 		box.add(Box.createVerticalStrut(260));
-		label_t1.setAlignmentX(Component.CENTER_ALIGNMENT);
-		label_t1.setFont(font);
-		label_t1.setForeground(Color.WHITE);
-		box.add(label_t1);
-		box.add(Box.createVerticalStrut(15));
-		label_t2.setAlignmentX(Component.CENTER_ALIGNMENT);
-		label_t2.setFont(font);
-		label_t2.setForeground(Color.WHITE);
-		box.add(label_t2);
-		box.add(Box.createVerticalStrut(15));
-		label_t3.setAlignmentX(Component.CENTER_ALIGNMENT);
-		label_t3.setFont(font);
-		label_t3.setForeground(Color.WHITE);
-		box.add(label_t3);
-		box.add(Box.createVerticalStrut(15));
-		label_t4.setAlignmentX(Component.CENTER_ALIGNMENT);
-		label_t4.setFont(font);
-		label_t4.setForeground(Color.WHITE);
-		box.add(label_t4);
-		box.add(Box.createVerticalStrut(15));
-		label_t5.setAlignmentX(Component.CENTER_ALIGNMENT);
-		label_t5.setFont(font);
-		label_t5.setForeground(Color.WHITE);
-		box.add(label_t5);
-
+		bests.setFont(font);
+		bests.setForeground(Color.WHITE);
+		bests.setOpaque(false);
+		bests.setEditable(false);
+        bests.setFocusable(false);
+		box.add(bests);
+		
 		ContentPanel pa = new ContentPanel("record_back");
 		pa.add(box, java.awt.BorderLayout.CENTER);
 		box.setOpaque(false);
@@ -77,7 +73,7 @@ public class BestScores extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
 				clos();
-				// new MyDialog(2);
+				new MyDialog(3);
 			}
 
 			@Override
@@ -118,45 +114,7 @@ public class BestScores extends JFrame {
 		});
 	}
 
-	private void parser() {
-		try {
-			BufferedReader rfile = new BufferedReader(new FileReader(
-					"assets/best.txt"));
-			String line;
-
-			int str_cnt = 0;
-			while ((line = rfile.readLine()) != null) {
-				str_cnt += 1;
-				make_label(str_cnt, line);
-			}
-			;
-
-			rfile.close();
-
-		} catch (IOException e) {
-			System.exit(0);
-		}
-	}
-
 	private void clos() {
 		this.dispose();
-	}
-
-	private void make_label(int i, String line) {
-		if (i == 1) {
-			label_t1.setText(line);
-		} else if (i == 2) {
-			label_t2.setText(line);
-		}
-		if (i == 3) {
-			label_t3.setText(line);
-		}
-		if (i == 4) {
-			label_t4.setText(line);
-		}
-		if (i == 5) {
-			label_t5.setText(line);
-		}
-
 	}
 }

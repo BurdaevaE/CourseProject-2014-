@@ -33,7 +33,7 @@ coin 899 52
 coin 899 152
 coin 899 52
 coin 899 112
-airplane 899 52
+airplane 640 489
 coin 899 32
 coin 899 72
 coin 899 112
@@ -106,7 +106,7 @@ coin 899 32
 present 899 112
 coin 899 192
 coin 899 152
-airplane 899 32
+airplane 700 489
 coin 899 112
 coin 899 72
 coin 899 32
@@ -130,7 +130,7 @@ coin 899 112
 coin 899 192
 coin 899 192
 balloon 899 72
-present 899 112
+present 899 100
 coin 899 32
 coin 899 32
 coin 899 32
@@ -143,14 +143,14 @@ coin 899 32
 coin 899 32
 coin 899 152
 coin 899 152
-fighter 899 112
+fighter 899 110
 present 899 32
 balloon 899 72
 coin 899 152
 coin 899 152
 coin 899 152
 coin 899 112
-airplane 899 32
+airplane 590 489
 coin 899 112
 coin 899 72
 coin 899 72
